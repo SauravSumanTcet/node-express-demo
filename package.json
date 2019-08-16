@@ -1,0 +1,26 @@
+{
+  "name": "express-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SauravSumanTcet/node-express-demo.git"
+  },
+  "author": "Saurav Suman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SauravSumanTcet/node-express-demo/issues"
+  },
+  "homepage": "https://github.com/SauravSumanTcet/node-express-demo#readme",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
