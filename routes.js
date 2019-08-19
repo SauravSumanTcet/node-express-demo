@@ -30,7 +30,9 @@ module.exports = router => {
           let html = data.toString();
           html = html.replace("{{username}}", req.body.username);
           html = html.replace("{{password}}", req.body.password);
-          html = html.replace("{{pageData}}", JSON.stringify(json));
+          let JSON_RES = JSON.stringify(json);
+          JSON_RES = JSON_RES.replace(/\"/g,'\'');
+          html = html.replace("{{{pageData}}}", JSON_RES);
           res.write(html);
         }
         res.end();

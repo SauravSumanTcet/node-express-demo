@@ -8,13 +8,17 @@ Your username is <ins> {{username}}</ins>
 password is <ins>{{password}}</ins>
 </pre>
 
-<input type="hidden" id="usersList" name="usersList" value='{{pageData}}' />
+<input type="hidden" id="usersList" name="usersList" value="{{{pageData}}}" />
 <div id="usersListContainer"><h1>Loading...</h1></div>
 <script>
-  var x = document.getElementById("usersList").value;
-  console.log(JSON.parse(x));
-
-  const html = "<h1>Loaded!!!</h1>";
-
-  document.getElementById("usersListContainer").innerHTML = html;
+  let json = document.getElementById('usersList').value;
+  json = json.replace(/\'/g, '"');
+  json = JSON.parse(json);
+  console.log('Response', json);
+  let listElements = [];
+  json.data.forEach(li => {
+    listElements.push(`<li>${li.first_name}</li>`);
+  });
+  let html = ['<h4>','Below are the users fetched from fake api -', '</h4>', '<ul>', ...listElements, '</ul>'].join('\n');
+  html = document.getElementById('usersListContainer').innerHTML = html;
 </script>
