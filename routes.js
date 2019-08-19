@@ -24,7 +24,7 @@ module.exports = ((router) => {
             } else {
                 let html = data.toString();
                 html = html.replace('{{username}}', req.body.username);
-                html = html.replace('{{password}}', req.body.username);
+                html = html.replace('{{password}}', req.body.password);
                 res.write(html);
             }
             res.end();
