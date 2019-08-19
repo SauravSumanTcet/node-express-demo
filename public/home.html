@@ -7,3 +7,14 @@ Your username is <ins> {{username}}</ins>
     and
 password is <ins>{{password}}</ins>
 </pre>
+
+<input type="hidden" id="usersList" name="usersList" value='{{pageData}}' />
+<div id="usersListContainer"><h1>Loading...</h1></div>
+<script>
+  var x = document.getElementById("usersList").value;
+  console.log(JSON.parse(x));
+
+  const html = "<h1>Loaded!!!</h1>";
+
+  document.getElementById("usersListContainer").innerHTML = html;
+</script>

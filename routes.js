@@ -1,35 +1,44 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
+const fetch = require("node-fetch");
 
-getPath = (_path) => {
-    return path.join(__dirname, 'public', _path);
-}
+getPath = _path => {
+  return path.join(__dirname, "public", _path);
+};
 
-module.exports = ((router) => {
-    router.get('/', (req, res) => {
-        res.redirect('/login');
+module.exports = router => {
+  router.get("/", (req, res) => {
+    res.redirect("/login");
 
-        // res.redirect('/home');
-    });
+    // res.redirect('/home');
+  });
 
-    router.get('/login', (req, res) => {
-        res.sendFile(getPath('login.html'));
-    });
+  router.get("/login", (req, res) => {
+    res.sendFile(getPath("login.html"));
+  });
 
-    router.post('/home', (req, res) => {
-        fs.readFile(getPath('home.html'), null, (error, data) => {
-            if (error) {
-                res.writeHead(404);
-                res.write('file not found');
-            } else {
-                let html = data.toString();
-                html = html.replace('{{username}}', req.body.username);
-                html = html.replace('{{password}}', req.body.password);
-                res.write(html);
-            }
-            res.end();
-        });
-    });
+  // use of async - await
+  router.post("/home", (req, res) => {
+    const request = async () => {
+      const response = await fetch("https://reqres.in/api/users?page=2");
+      const json = await response.json();
+      fs.readFile(getPath("home.html"), null, (error, data) => {
+        if (error) {
+          res.writeHead(404);
+          res.write("file not found");
+        } else {
+          let html = data.toString();
+          html = html.replace("{{username}}", req.body.username);
+          html = html.replace("{{password}}", req.body.password);
+          html = html.replace("{{pageData}}", JSON.stringify(json));
+          res.write(html);
+        }
+        res.end();
+      });
+    };
 
-    return router;
-});
+    request();
+  });
+
+  return router;
+};
